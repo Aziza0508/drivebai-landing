@@ -1,0 +1,268 @@
+/* Long-document typography for /privacy, on top of styles.css.
+ *
+ * Phone first. Most people who open a privacy notice do it from a link inside an
+ * app, on a phone, one-handed — so the base rules here are the narrow ones and
+ * the only media query widens things for a desktop. Nothing is hidden at any
+ * width: a legal document that collapses sections behind taps is a document
+ * people do not read.
+ *
+ * It reuses the site's tokens (--paper, --carbon, --mint, --line) so the page
+ * looks like the rest of DriveBai rather than like a generated policy page.
+ */
+
+.doc {
+  max-width: 44rem; /* ~75 characters of this font: a comfortable measure */
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--paper);
+}
+
+/* ── The dateline, visible before any prose ───────────────────────────────── */
+.doc .dateline {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+  margin: 0 0 1.5rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(85, 197, 190, 0.08);
+  font-size: 0.875rem;
+  color: var(--paper-dim);
+}
+.doc .dateline-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: var(--mint);
+}
+
+/* ── Headings ─────────────────────────────────────────────────────────────── */
+.doc h1 {
+  font-family: var(--display);
+  font-size: clamp(1.75rem, 7vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 1rem;
+}
+
+.doc h2 {
+  font-size: clamp(1.25rem, 4.5vw, 1.6rem);
+  line-height: 1.25;
+  margin: 2.75rem 0 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+  /* Deep-linked headings must not land under the fixed header. */
+  scroll-margin-top: calc(var(--header) + 1rem);
+}
+
+.doc h3 {
+  font-size: 1.0625rem;
+  margin: 1.75rem 0 0.4rem;
+  color: var(--mint);
+  letter-spacing: 0.01em;
+}
+
+/* The alias anchor for section 4 — a target with no box of its own. */
+.doc .alias {
+  display: block;
+  position: relative;
+  top: calc((var(--header) + 1rem) * -1);
+  visibility: hidden;
+}
+
+/* The # beside a heading. Always present rather than hover-only: on a phone
+ * there is no hover, and the point is to be able to copy a section link. */
+.doc .anchor {
+  margin-left: 0.5rem;
+  font-size: 0.7em;
+  color: var(--muted);
+  opacity: 0.5;
+  text-decoration: none;
+}
+.doc .anchor:hover,
+.doc .anchor:focus-visible {
+  opacity: 1;
+  color: var(--mint);
+}
+
+/* ── Body text ────────────────────────────────────────────────────────────── */
+.doc p {
+  margin: 0 0 1rem;
+}
+
+.doc strong {
+  color: #fff;
+  font-weight: 650;
+}
+
+.doc em {
+  color: var(--paper-dim);
+}
+
+.doc a:not(.anchor) {
+  color: var(--mint);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  /* Long addresses must wrap rather than push the page sideways. */
+  overflow-wrap: anywhere;
+}
+
+.doc ul {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+}
+.doc li {
+  margin: 0 0 0.5rem;
+}
+.doc li::marker {
+  color: var(--mint);
+}
+
+.doc hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 2rem 0;
+}
+
+/* ── The blockquote note ──────────────────────────────────────────────────── */
+.doc blockquote.note {
+  margin: 1.25rem 0;
+  padding: 1rem 1.1rem;
+  border-left: 3px solid var(--amber);
+  border-radius: 0 10px 10px 0;
+  background: rgba(226, 168, 95, 0.09);
+  font-size: 0.9375rem;
+  color: var(--paper-dim);
+}
+.doc blockquote.note p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Tables ───────────────────────────────────────────────────────────────── */
+/* Retention and disclosure are both stated as tables, and a table is the one
+ * thing that genuinely cannot reflow to 360px. Each gets its own horizontal
+ * scroller so the PAGE never scrolls sideways. */
+.doc .table-scroll {
+  margin: 0 0 1.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--carbon);
+}
+
+.doc table {
+  width: 100%;
+  min-width: 30rem;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.doc thead th {
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mint);
+  font-weight: 600;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--line-strong);
+  white-space: nowrap;
+}
+
+.doc tbody td {
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  color: var(--paper-dim);
+}
+.doc tbody tr:last-child td {
+  border-bottom: 0;
+}
+.doc tbody td:first-child {
+  color: var(--paper);
+  font-weight: 550;
+}
+
+/* ── The contents list, at the end ────────────────────────────────────────── */
+/* At the end rather than the top on purpose: on a phone, a contents list above
+ * the text pushes the actual notice below the fold, and the sections are short
+ * enough to scroll. It is here so a section link can still be found and copied. */
+.doc .doc-contents {
+  margin-top: 3rem;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--carbon);
+}
+.doc .doc-contents h2 {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  border: 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.doc .doc-contents ol {
+  margin: 0;
+  padding-left: 1.4rem;
+  font-size: 0.9375rem;
+}
+.doc .doc-contents li {
+  margin: 0 0 0.4rem;
+}
+.doc .doc-contents a {
+  color: var(--paper-dim);
+  text-decoration: none;
+}
+.doc .doc-contents a:hover,
+.doc .doc-contents a:focus-visible {
+  color: var(--mint);
+  text-decoration: underline;
+}
+
+/* ── Wider screens ────────────────────────────────────────────────────────── */
+@media (min-width: 48rem) {
+  .doc {
+    padding: 3rem 2rem 5rem;
+    font-size: 1.125rem;
+  }
+  .doc table {
+    min-width: 0;
+  }
+}
+
+/* Someone will print this or save it as a PDF for their records. */
+@media print {
+  .site-header,
+  .site-footer,
+  .doc .anchor,
+  .doc .doc-contents {
+    display: none !important;
+  }
+  .doc {
+    max-width: none;
+    padding: 0;
+    color: #000;
+    font-size: 11pt;
+  }
+  .doc .table-scroll {
+    overflow: visible;
+    border-color: #999;
+  }
+  .doc table {
+    min-width: 0;
+  }
+  .doc h2,
+  .doc h3 {
+    color: #000;
+  }
+  .doc a:not(.anchor) {
+    color: #000;
+  }
+}
