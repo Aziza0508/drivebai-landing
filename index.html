@@ -3,232 +3,338 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DriveBai - Long-term car rentals with weekly payments</title>
+    <title>DriveBai — rent a car by the week, in New York</title>
     <meta
       name="description"
-      content="DriveBai connects verified drivers with cars in your city. Long-term rentals, transparent weekly billing, insurance, smart unlock, and host chat from your phone."
+      content="Rent a car from a verified owner by the week. One price, charged every 7 days, no fixed end date. Return the car in the app and the charges stop. iPhone app."
     />
     <meta name="author" content="DriveBai" />
+    <meta name="theme-color" content="#050605" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="DriveBai - Long-term car rentals with weekly payments" />
+    <meta property="og:title" content="DriveBai — rent a car by the week" />
     <meta
       property="og:description"
-      content="Long-term car rentals in the United States with weekly payments and verified hosts."
+      content="Rent a car from a verified owner by the week. One price, charged every 7 days, no fixed end date. Return the car in the app and the charges stop."
     />
     <meta property="og:image" content="./assets/og-image-v2.png" />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- The first screen in the sequence is above the fold on a phone. -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+
+    <link rel="preload" as="image" href="./assets/app/01-discover.webp" type="image/webp" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
     <header class="site-header" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="DriveBai home">
-        <img src="./assets/drivebai-logo.png" alt="DriveBai" class="brand-logo" />
+        <img src="./assets/drivebai-logo.png" alt="DriveBai" class="brand-logo" width="349" height="168" />
       </a>
       <nav aria-label="Primary">
         <a href="#how">How it works</a>
-        <a href="#download">iOS app</a>
+        <a href="#plain">The plain terms</a>
+        <a href="#get">Get the app</a>
       </nav>
     </header>
 
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
+    <main id="main">
+      <!-- ───────────────────────── Hero ───────────────────────── -->
+      <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">Long-term car rentals in the United States</p>
-          <h1 id="hero-title">Long-term car rentals</h1>
+          <p class="eyebrow">Car rental in New York · iPhone</p>
+          <h1 id="hero-title">Rent a car by the week, from someone who owns it.</h1>
           <p class="lede">
-            DriveBai connects verified drivers with cars in your city. Transparent
-            weekly billing, full insurance, smart unlock - all from your phone.
+            Find a car near you, agree a weekly price with its owner, and pick it
+            up. The same amount is charged every 7 days for as long as you keep
+            it. There is no fixed end date and no contract to get out of — return
+            the car in the app and the charges stop.
           </p>
-          <div class="hero-actions" aria-label="Primary actions">
-            <a class="button primary" href="#download">
+          <ul class="hero-facts">
+            <li><strong>$260–$290</strong> a week is the usual range today</li>
+            <li><strong>Every 7 days</strong>, charged a day before each week starts</li>
+            <li><strong>Return any day</strong> — unused days are refunded</li>
+          </ul>
+          <div class="hero-actions">
+            <a class="button primary" href="#get">
               <span class="button-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                   <path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.5-2.7-1.7-3.3-1.8-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.7 2.3-1.6 2.7-.4 6.7 1.1 8.9.8 1.1 1.7 2.3 2.9 2.2 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.2 0 2-1.1 2.8-2.2.9-1.3 1.2-2.6 1.3-2.6 0 0-2.6-1-2.7-3.3ZM14.4 5.2c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.5.6-1 1.7-.9 2.6 1 .1 2-.5 2.5-1.2Z" />
                 </svg>
               </span>
-              Get the iOS app
+              Get it on iPhone
             </a>
-            <a class="button secondary" href="#how">See the flow</a>
+            <a class="button secondary" href="#how">See how it works</a>
           </div>
         </div>
+      </section>
 
-        <div class="hero-visual" aria-hidden="true">
-          <div class="hero-device main-device">
-            <span class="device-island"></span>
-            <img src="./assets/main.jpg" alt="" />
-          </div>
-          <div class="hero-device ghost-device ghost-one">
-            <span class="device-island"></span>
-            <img src="./assets/app-1-discover.png" alt="" />
-          </div>
-          <div class="hero-device ghost-device ghost-two">
-            <span class="device-island"></span>
-            <img src="./assets/app-2-car.png" alt="" />
-          </div>
-          <div class="route-card route-card-one">
-            <span class="route-dot"></span>
-            <div>
-              <strong>$185</strong>
-              <span>Avg. weekly rent</span>
+      <!-- ─────────────────── The scroll sequence ─────────────────── -->
+      <!--
+        One phone, six real screens, advanced by SCROLL POSITION.
+
+        Where the browser supports scroll-driven animations, each step names a
+        view-timeline and the matching screen animates its opacity along that
+        timeline — so it tracks the finger on a phone and reverses on scroll-back
+        with no JavaScript at all. Everywhere else, a small IntersectionObserver
+        sets data-active on the container and CSS does the same thing in steps.
+        With JavaScript off and no scroll-timeline support, every screen is
+        simply visible in order: a static sequence that reads correctly.
+      -->
+      <section class="sequence" id="how" aria-labelledby="how-title">
+        <h2 id="how-title" class="section-title">What the app actually does</h2>
+
+        <div class="sequence-grid" data-sequence>
+          <div class="phone-rail">
+            <div class="phone" role="img"
+                 aria-label="A sequence of six DriveBai screens: browsing cars, a car's detail page, a weekly rental request, the billing card, payment history, and a conversation with the car's owner.">
+              <div class="phone-screens">
+                <picture class="screen" data-screen="1">
+                  <source srcset="./assets/app/01-discover.webp" type="image/webp" />
+                  <img src="./assets/app/01-discover.png" alt="" width="600" height="1150" fetchpriority="high" />
+                </picture>
+                <picture class="screen" data-screen="2">
+                  <source srcset="./assets/app/02-cardetail.webp" type="image/webp" />
+                  <img src="./assets/app/02-cardetail.png" alt="" width="600" height="1150" loading="lazy" />
+                </picture>
+                <picture class="screen" data-screen="3">
+                  <source srcset="./assets/app/03-request.webp" type="image/webp" />
+                  <img src="./assets/app/03-request.png" alt="" width="600" height="1150" loading="lazy" />
+                </picture>
+                <picture class="screen" data-screen="4">
+                  <source srcset="./assets/app/04-today.webp" type="image/webp" />
+                  <img src="./assets/app/04-today.png" alt="" width="600" height="1150" loading="lazy" />
+                </picture>
+                <picture class="screen" data-screen="5">
+                  <source srcset="./assets/app/05-payments.webp" type="image/webp" />
+                  <img src="./assets/app/05-payments.png" alt="" width="600" height="1150" loading="lazy" />
+                </picture>
+                <picture class="screen" data-screen="6">
+                  <source srcset="./assets/app/06-chat.webp" type="image/webp" />
+                  <img src="./assets/app/06-chat.png" alt="" width="600" height="1150" loading="lazy" />
+                </picture>
+              </div>
             </div>
           </div>
-          <div class="route-card route-card-two">
-            <span class="route-dot"></span>
-            <div>
-              <strong>24/7</strong>
-              <span>Roadside support</span>
+
+          <ol class="steps">
+            <li class="step" data-step="1">
+              <picture class="step-shot">
+                <source srcset="./assets/app/01-discover.webp" type="image/webp" />
+                <img src="./assets/app/01-discover.png" alt="Browsing cars in the DriveBai app: four available cars, each with a photo, a weekly price and the neighbourhood it is kept in." width="600" height="1150" loading="lazy" />
+              </picture>
+              <p class="step-n">01</p>
+              <h3>Find a car near you</h3>
+              <p>
+                Browse every car without an account. Each listing shows the
+                weekly price, the deposit, the neighbourhood it is kept in, and
+                how long you need to have held a licence.
+              </p>
+            </li>
+            <li class="step" data-step="2">
+              <picture class="step-shot">
+                <source srcset="./assets/app/02-cardetail.webp" type="image/webp" />
+                <img src="./assets/app/02-cardetail.png" alt="A car's page: a 2022 Hyundai Elantra at $280 per week, with the button reading “Rent — renews weekly, charged every week until you return the car”." width="600" height="1150" loading="lazy" />
+              </picture>
+              <p class="step-n">02</p>
+              <h3>See what you are agreeing to</h3>
+              <p>
+                The price is per week and it renews. The app says so on the
+                button itself — <em>charged every week until you return the
+                car</em> — before you ask for anything.
+              </p>
+            </li>
+            <li class="step" data-step="3">
+              <picture class="step-shot">
+                <source srcset="./assets/app/03-request.webp" type="image/webp" />
+                <img src="./assets/app/03-request.png" alt="A sent rental request showing $280.00 a week, renewing weekly until the car is returned, the first week's amount, and that unused days are refunded." width="600" height="1150" loading="lazy" />
+              </picture>
+              <p class="step-n">03</p>
+              <h3>Ask the owner</h3>
+              <p>
+                Your request states the weekly amount, the first week, and that
+                unused days are refunded. The owner sees your licence and decides.
+                Nothing is charged until they accept and you pay.
+              </p>
+            </li>
+            <li class="step" data-step="4">
+              <picture class="step-shot">
+                <source srcset="./assets/app/04-today.webp" type="image/webp" />
+                <img src="./assets/app/04-today.png" alt="The rental card: paid through Friday 9 October, renewing weekly, the next charge on Thursday 8 October, and the card it will be taken from." width="600" height="1150" loading="lazy" />
+              </picture>
+              <p class="step-n">04</p>
+              <h3>Then it just runs</h3>
+              <p>
+                One card, one amount, every 7 days. The app shows what you have
+                paid through and what the next charge is, with a reminder two days
+                before it. The amount cannot change unless you agree to a new one.
+              </p>
+            </li>
+            <li class="step" data-step="5">
+              <picture class="step-shot">
+                <source srcset="./assets/app/05-payments.webp" type="image/webp" />
+                <img src="./assets/app/05-payments.png" alt="Payment history: four weeks paid at $280.00 each, $1120.00 in total, with the dates each week covered." width="600" height="1150" loading="lazy" />
+              </picture>
+              <p class="step-n">05</p>
+              <h3>Every week, on the record</h3>
+              <p>
+                Each week that was collected, when, and for which dates. If a
+                charge fails you are told, you keep the car while we retry, and
+                you can pay in the app.
+              </p>
+            </li>
+            <li class="step" data-step="6">
+              <picture class="step-shot">
+                <source srcset="./assets/app/06-chat.webp" type="image/webp" />
+                <img src="./assets/app/06-chat.png" alt="A conversation with the car's owner about when the car is free and where to hand it over." width="600" height="1150" loading="lazy" />
+              </picture>
+              <p class="step-n">06</p>
+              <h3>Talk to the person, not a company</h3>
+              <p>
+                Arranging the pickup, asking about the tyres, agreeing where to
+                hand it back — that is a conversation with the owner, in the app,
+                kept with the rental.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ─────────────────── The plain terms ─────────────────── -->
+      <!--
+        This section exists because the agreements are blunt and the page should
+        be too. Every line here is a sentence from the driver and owner texts in
+        docs/TERMS_FOR_REVIEW.md. The page previously claimed "full insurance",
+        which those same texts explicitly disclaim.
+      -->
+      <section class="plain" id="plain" aria-labelledby="plain-title">
+        <div class="plain-inner">
+          <h2 id="plain-title" class="section-title">The parts people find out too late</h2>
+          <p class="plain-lede">
+            These are in the agreement you sign. They are here too, because
+            finding them later is worse.
+          </p>
+          <div class="plain-grid">
+            <div class="plain-card">
+              <h3>DriveBai does not insure the car</h3>
+              <p>
+                Insurance, registration, fuel, tickets and tolls are yours. If
+                you need cover, arrange it before you pick the car up.
+              </p>
+            </div>
+            <div class="plain-card">
+              <h3>The owner is paid what you pay, less 10%</h3>
+              <p>
+                DriveBai's service fee is 10% of the weekly rent. The owner
+                receives the rest, released as the week is used.
+              </p>
+            </div>
+            <div class="plain-card">
+              <h3>If a payment fails, you are told — and you keep the car</h3>
+              <p>
+                The card is retried across the first two days of the week. Pay in
+                the app and the rental carries on exactly as before.
+              </p>
+            </div>
+            <div class="plain-card">
+              <h3>Days you used and did not pay for are still owed</h3>
+              <p>
+                They become a balance in the app. Until it is cleared you cannot
+                start another rental, and closing your account does not clear it.
+              </p>
+            </div>
+            <div class="plain-card">
+              <h3>DriveBai does not recover vehicles</h3>
+              <p>
+                If a car is not returned we give the owner the rental record and
+                help the two of you reach each other. We do not take cars back
+                and have no way to do it.
+              </p>
+            </div>
+            <div class="plain-card">
+              <h3>Returning the car is the exit</h3>
+              <p>
+                Any day, no notice. The unused days of the week you have paid for
+                are refunded once the owner confirms they have the car.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="hero-peek" aria-label="DriveBai highlights">
-        <div>
-          <strong>1,842</strong>
-          <span>Active hosts</span>
-        </div>
-        <div>
-          <strong>$185</strong>
-          <span>Avg. weekly rent</span>
-        </div>
-        <div>
-          <strong>24/7</strong>
-          <span>Roadside support</span>
-        </div>
-      </section>
-
-      <section class="app-story" id="how" aria-labelledby="story-title">
-        <div class="story-visual" aria-hidden="true">
-          <div class="stage-grid"></div>
-          <div class="app-stage">
-            <div class="stage-phone">
-              <span class="device-island"></span>
-              <img class="screen-layer" data-step="0" src="./assets/app-1-discover.png" alt="" />
-              <img class="screen-layer" data-step="1" src="./assets/app-2-car.png" alt="" />
-              <img class="screen-layer" data-step="2" src="./assets/app-3-request.png" alt="" />
-              <img class="screen-layer" data-step="3" src="./assets/app-4-notifications.png" alt="" />
-              <img class="screen-layer" data-step="4" src="./assets/app-5-chat.png" alt="" />
-            </div>
-
-            <div class="stage-note note-discover" data-note="0">
-              <span>01</span>
-              <strong>Verified fleet</strong>
-            </div>
-            <div class="stage-note note-choose" data-note="1">
-              <span>02</span>
-              <strong>Weekly pricing</strong>
-            </div>
-            <div class="stage-note note-request" data-note="2">
-              <span>03</span>
-              <strong>No charge before approval</strong>
-            </div>
-            <div class="stage-note note-track" data-note="3">
-              <span>04</span>
-              <strong>Live reminders</strong>
-            </div>
-            <div class="stage-note note-chat" data-note="4">
-              <span>05</span>
-              <strong>Host chat</strong>
-            </div>
-          </div>
-        </div>
-
-        <div class="chapters">
-          <article class="chapter left" data-step="0">
-            <div class="chapter-heading">
-              <span class="chapter-number">01</span>
-              <h2 id="story-title">Discover</h2>
-            </div>
-            <p class="chapter-subtitle">Browse the fleet</p>
-            <p>
-              Filter by weekly budget, body type, location, or availability. Every listing
-              is verified by DriveBai - no dealer middlemen, no surprise fees.
-            </p>
-          </article>
-
-          <article class="chapter right" data-step="1">
-            <div class="chapter-heading">
-              <span class="chapter-number">02</span>
-              <h2>Choose</h2>
-            </div>
-            <p class="chapter-subtitle">Car in detail</p>
-            <p>
-              Photos, weekly rate, optional buyout price, deposit, host requirements -
-              everything you need to decide sits on the listing.
-            </p>
-          </article>
-
-          <article class="chapter left" data-step="2">
-            <div class="chapter-heading">
-              <span class="chapter-number">03</span>
-              <h2>Request</h2>
-            </div>
-            <p class="chapter-subtitle">One tap to book</p>
-            <p>
-              Send a lease request straight to the host. Pick your duration, review the
-              total, submit. Cancel any time before approval - no commitment, no charge.
-            </p>
-          </article>
-
-          <article class="chapter right" data-step="3">
-            <div class="chapter-heading">
-              <span class="chapter-number">04</span>
-              <h2>Track</h2>
-            </div>
-            <p class="chapter-subtitle">Live updates</p>
-            <p>
-              Booking requests, new messages, payments, rental reminders - all in one
-              place. Real-time updates so you never miss a beat.
-            </p>
-          </article>
-
-          <article class="chapter left" data-step="4">
-            <div class="chapter-heading">
-              <span class="chapter-number">05</span>
-              <h2>Chat</h2>
-            </div>
-            <p class="chapter-subtitle">Talk to your host</p>
-            <p>
-              Built-in messaging unlocks the moment your request is accepted. Coordinate
-              pickup, ask questions, share photos - everything stays inside the app.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="download" id="download" aria-labelledby="download-title">
-        <div class="download-copy">
-          <p class="eyebrow">Available on iOS</p>
-          <h2 id="download-title">Drive longer. Pay weekly.</h2>
+      <!-- ─────────────────── Owners ─────────────────── -->
+      <section class="owners" aria-labelledby="owners-title">
+        <div class="owners-inner">
+          <h2 id="owners-title" class="section-title">If it is your car</h2>
           <p>
-            Long-term rentals, transparent billing, insurance, smart unlock, host chat,
-            and rental reminders - all inside DriveBai.
+            List it, set a weekly price, and see who is asking — their name,
+            their licence, and how long they have held it — before you hand over
+            the keys. You are paid as each week is used, less DriveBai's 10% fee,
+            into your own Stripe account.
+          </p>
+          <p class="owners-note">
+            DriveBai does not pay you for rent it cannot collect from a driver.
+            There is no guarantee and no minimum. That is stated plainly in the
+            owner agreement, and it is why the fee is what it is.
           </p>
         </div>
-        <a class="store-button" href="#" aria-label="Download DriveBai on the App Store">
-          <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" fill="currentColor">
-            <path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.5-2.7-1.7-3.3-1.8-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.7 2.3-1.6 2.7-.4 6.7 1.1 8.9.8 1.1 1.7 2.3 2.9 2.2 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.2 0 2-1.1 2.8-2.2.9-1.3 1.2-2.6 1.3-2.6 0 0-2.6-1-2.7-3.3ZM14.4 5.2c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.5.6-1 1.7-.9 2.6 1 .1 2-.5 2.5-1.2Z" />
-          </svg>
-          <span>
-            <small>Download on the</small>
-            <strong>App Store</strong>
-          </span>
-        </a>
+      </section>
+
+      <!-- ─────────────────── Download ─────────────────── -->
+      <section class="get" id="get" aria-labelledby="get-title">
+        <div class="get-inner">
+          <p class="eyebrow">Available on iPhone</p>
+          <h2 id="get-title">Browse without an account.</h2>
+          <p>
+            You only need an email to sign up, and a licence and a card when you
+            actually rent something.
+          </p>
+          <a class="button primary large" href="#" aria-label="Download DriveBai on the App Store">
+            <span class="button-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.5-2.7-1.7-3.3-1.8-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.7 2.3-1.6 2.7-.4 6.7 1.1 8.9.8 1.1 1.7 2.3 2.9 2.2 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.2 0 2-1.1 2.8-2.2.9-1.3 1.2-2.6 1.3-2.6 0 0-2.6-1-2.7-3.3ZM14.4 5.2c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.5.6-1 1.7-.9 2.6 1 .1 2-.5 2.5-1.2Z" />
+              </svg>
+            </span>
+            Download on the App Store
+          </a>
+        </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <a class="brand" href="#top" aria-label="DriveBai home">
-        <img src="./assets/drivebai-logo.png" alt="DriveBai" class="brand-logo" />
+        <img src="./assets/drivebai-logo.png" alt="DriveBai" class="brand-logo" width="349" height="168" />
       </a>
       <nav aria-label="Legal">
-        <a href="https://drivebai-landing-v2.netlify.app/privacy">Privacy</a>
+        <!--
+          PRIVACY POINTS AT /privacy, WHICH 404s UNTIL THE NOTICE IS PUBLISHED.
+          That is a deliberate choice between two wrong answers.
+
+          The alternative is the live page at drivebai-landing-v2.netlify.app,
+          and it is worse. It is dated September 2024 and describes practices
+          that are not ours: nothing about a driver's documents reaching the car's
+          owner the moment they send a request, nothing about location on an
+          overdue rental, and none of the retention windows. Linking it would
+          publish a privacy statement we know to be false about our own product —
+          the exact defect we have spent this month removing from the agreements.
+
+          A 404 is temporarily ABSENT. The boilerplate is permanently WRONG. A
+          visitor who clicks gets nothing rather than a false account of their own
+          rights, and this link needs no second change: it starts working the
+          moment the notice merges, which is blocked only on a postal address.
+
+          Terms still points at the old host for the opposite reason — there is no
+          terms page here at all, so a 404 would replace something with nothing.
+        -->
+        <a href="/privacy">Privacy</a>
         <a href="https://drivebai-landing-v2.netlify.app/terms">Terms</a>
-        <a href="mailto:hello@drivebai.app">Contact</a>
+        <a href="mailto:privacy@drivebai.com">Contact</a>
       </nav>
       <small>&copy; DriveBai 2026</small>
     </footer>
 
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
   </body>
 </html>
