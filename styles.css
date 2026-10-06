@@ -148,892 +148,622 @@ h2 {
   transform: scaleX(1);
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   The landing page.
+
+   Everything above this line — the tokens, the body, the header and footer —
+   is shared with /privacy and is deliberately untouched.
+
+   Phone first: the base rules are the narrow ones and the media queries only
+   widen. The scroll sequence degrades in three steps, each of which has to be
+   good on its own: scroll-driven CSS where it exists, an IntersectionObserver
+   where it does not, and with no JavaScript at all a plain stack of screens in
+   order.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--paper);
+  color: var(--black);
+  border-radius: 0 0 8px 0;
+  font-weight: 600;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(1.45rem, 5.5vw, 2.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin: 0 0 1rem;
+}
+
+/* ─── Hero ───────────────────────────────────────────────────────────────── */
 .hero {
   position: relative;
-  isolation: isolate;
-  min-height: calc(100svh - 4.5rem);
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(430px, 1.05fr);
-  align-items: center;
-  gap: 2rem;
-  padding: calc(var(--header) + 2.2rem) clamp(1.2rem, 4vw, 5rem) 1.6rem;
-  overflow: hidden;
+  /* The header is fixed and --header tall; the hero has to start below it or
+     the eyebrow sits under the blur. */
+  padding: calc(var(--header) + 2rem) 1.25rem 2.5rem;
+  max-width: 62rem;
+  margin: 0 auto;
 }
 
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  z-index: -1;
-  height: 14rem;
-  background: linear-gradient(0deg, var(--black), transparent);
-}
-
-.hero-copy {
-  position: relative;
-  z-index: 3;
-  max-width: 720px;
-}
+/* Anchor targets must clear the fixed header too. */
+#how, #plain, #get, #top { scroll-margin-top: calc(var(--header) + 1rem); }
 
 .eyebrow {
-  margin-bottom: 1rem;
-  color: var(--mint);
+  margin: 0 0 0.75rem;
   font-size: 0.75rem;
-  font-weight: 900;
-  letter-spacing: 0.16em;
   text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--mint);
 }
 
 .hero h1 {
-  max-width: 11.5ch;
-  margin-bottom: 1.25rem;
   font-family: var(--display);
-  font-size: 5rem;
-  line-height: 0.86;
-  letter-spacing: 0;
-  text-transform: uppercase;
+  /* 7.5vw, not 9: at 430px the old size set a min-content width wider than the
+     viewport, so the first line was clipped by body's overflow-x guard rather
+     than wrapping. A heading that needs the guard is the wrong size. */
+  font-size: clamp(1.75rem, 7.5vw, 3.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.25rem;
+  text-wrap: balance;
 }
 
 .lede {
-  max-width: 38rem;
-  margin-bottom: 2rem;
+  font-size: clamp(1rem, 3.6vw, 1.2rem);
+  line-height: 1.55;
   color: var(--paper-dim);
-  font-size: 1.08rem;
-  line-height: 1.65;
+  max-width: 34rem;
+  margin: 0 0 1.75rem;
+}
+
+.hero-facts {
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+  max-width: 34rem;
+}
+.hero-facts li {
+  padding-left: 1.1rem;
+  position: relative;
+  font-size: 0.95rem;
+  color: var(--paper-dim);
+}
+.hero-facts li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+.hero-facts strong {
+  color: var(--paper);
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.button,
-.store-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  font-size: 0.82rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition:
-    transform 180ms ease,
-    background 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease;
+  gap: 0.75rem;
 }
 
 .button {
+  display: inline-flex;
+  align-items: center;
   gap: 0.55rem;
-  padding: 0.82rem 1rem;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
-
-.button:hover,
-.store-button:hover {
-  transform: translateY(-2px);
+.button:hover {
+  transform: translateY(-1px);
 }
-
 .button.primary {
-  background: var(--paper);
-  border-color: var(--paper);
+  background: var(--mint);
   color: var(--black);
 }
-
+.button.primary:hover {
+  background: #6ad4cd;
+}
 .button.secondary {
-  color: rgba(247, 243, 232, 0.72);
-  background: rgba(247, 243, 232, 0.03);
-}
-
-.button.secondary:hover {
   border-color: var(--line-strong);
-  color: white;
-}
-
-.button-icon {
-  display: inline-grid;
-  place-items: center;
-}
-
-.hero-visual {
-  position: relative;
-  z-index: 1;
-  min-height: 500px;
-  transform: translate3d(0, var(--hero-y, 0px), 0);
-  will-change: transform;
-}
-
-.hero-device,
-.stage-phone {
-  position: absolute;
-  aspect-ratio: 9 / 19.5;
-  background:
-    linear-gradient(145deg, #2d302d, #050505 44%, #151715),
-    var(--carbon);
-  padding: 8px;
-  border: 1px solid rgba(247, 243, 232, 0.18);
-  border-radius: 38px;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-    0 34px 80px rgba(0, 0, 0, 0.48);
-}
-
-.hero-device img,
-.screen-layer {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 30px;
-  background: #050505;
-}
-
-.device-island {
-  position: absolute;
-  top: 16px;
-  left: 50%;
-  z-index: 20;
-  width: 34%;
-  height: 22px;
-  border-radius: 999px;
-  background: #030303;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
-  transform: translateX(-50%);
-}
-
-.main-device {
-  top: 44%;
-  right: 18%;
-  width: 250px;
-  transform: translateY(-50%) rotate(-3deg);
-}
-
-.ghost-device {
-  width: 190px;
-  opacity: 0.78;
-  filter: saturate(0.95) contrast(0.95);
-}
-
-.ghost-one {
-  top: 12%;
-  right: 3%;
-  transform: rotate(10deg);
-}
-
-.ghost-two {
-  right: 46%;
-  bottom: 5%;
-  transform: rotate(-12deg);
-}
-
-.route-card {
-  position: absolute;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  min-width: 182px;
-  padding: 0.78rem 0.9rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(16, 18, 16, 0.82);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-}
-
-.route-card-one {
-  top: 19%;
-  left: 7%;
-}
-
-.route-card-two {
-  right: 3%;
-  bottom: 17%;
-}
-
-.route-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--lime);
-  box-shadow: 0 0 0 5px rgba(217, 236, 107, 0.12);
-  flex: 0 0 auto;
-}
-
-.route-card strong,
-.route-card span {
-  display: block;
-}
-
-.route-card strong {
   color: var(--paper);
-  font-size: 1.08rem;
+}
+.button.secondary:hover {
+  border-color: var(--paper-dim);
+}
+.button.large {
+  padding: 1rem 1.6rem;
+  font-size: 1rem;
+}
+.button-icon {
+  display: inline-flex;
 }
 
-.route-card span {
-  color: var(--paper-dim);
-  font-size: 0.75rem;
+/* ─── The scroll sequence ────────────────────────────────────────────────── */
+.sequence {
+  padding: 2rem 1.25rem 3rem;
+  max-width: 72rem;
+  margin: 0 auto;
 }
 
-.hero-peek {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  margin: 0 clamp(1.2rem, 4vw, 5rem);
-  border: 1px solid var(--line);
-  background: var(--line);
+.sequence-grid {
+  /* Names a scope so a step's view-timeline can drive a screen that is not its
+     descendant. Without this the two sides cannot see each other's timelines. */
+  timeline-scope: --s1, --s2, --s3, --s4, --s5, --s6;
 }
 
-.hero-peek div {
-  min-height: 74px;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem 1.2rem;
-  background: rgba(16, 18, 16, 0.72);
-}
-
-.hero-peek strong {
-  color: var(--lime);
-  font-size: 1.55rem;
-}
-
-.hero-peek span {
-  color: var(--paper-dim);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.app-story {
-  position: relative;
-  min-height: 520svh;
-  margin-top: 2.8rem;
-}
-
-.story-visual {
+.phone-rail {
+  /* Sticky on a phone as well as a desktop. Without this the frame scrolls out
+     of view during step one and the other five screens advance where nobody can
+     see them — the whole sequence wasted on the larger half of the traffic.
+     
+     The rail carries its own backdrop because the steps scroll UNDERNEATH it: a
+     transparent sticky frame lets step text run through the phone, which reads
+     as a rendering fault rather than a design. The gradient tail is what makes
+     text disappear instead of being chopped. */
   position: sticky;
-  top: 0;
-  height: 100svh;
-  display: grid;
-  place-items: center;
+  top: var(--header);
+  z-index: 1;
+  margin: 0 -1.25rem 1rem;
+  padding: 1rem 1.25rem 2.5rem;
+  /* Opaque for the whole of the phone, fading only across the 2.5rem tail below
+     it. A gradient that starts fading inside the frame lets step text show
+     through the lower third of the screenshot. */
+  background: linear-gradient(
+    to bottom,
+    var(--black) calc(100% - 2.5rem),
+    rgba(5, 6, 5, 0) 100%
+  );
+}
+
+.phone-rail .phone {
+  max-width: 10rem;
+  margin: 0 auto;
+}
+
+.phone {
+  position: relative;
+  border-radius: 2rem;
+  padding: 0.5rem;
+  background: linear-gradient(160deg, #2a2d2a, #0d0f0d);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(247, 243, 232, 0.08);
+}
+
+.phone-screens {
+  position: relative;
+  border-radius: 1.6rem;
   overflow: hidden;
+  background: #fff;
+  /* 600 x 1150 is the exported capture; the box reserves that ratio so nothing
+     reflows while the images decode. */
+  aspect-ratio: 600 / 1150;
+}
+
+.phone-screens::after {
+  /* The captures end mid-scroll. A short fade is framing, not retouching: it
+     stops a cut-off row reading as a broken screenshot. */
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 14%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff 82%);
   pointer-events: none;
 }
 
-.stage-grid {
+.screen {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(90deg, transparent 0, transparent calc(50% - 1px), rgba(247, 243, 232, 0.1) 50%, transparent calc(50% + 1px)),
-    repeating-linear-gradient(0deg, rgba(247, 243, 232, 0.035) 0 1px, transparent 1px 92px);
-  opacity: calc(0.24 + var(--story-progress, 0) * 0.28);
+  display: block;
+}
+.screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
 }
 
-.app-stage {
-  position: relative;
-  width: min(72vh, 50vw, 720px);
-  aspect-ratio: 1;
-  transform: translate3d(0, var(--stage-y, 0px), 0);
-}
-
-.stage-phone {
-  top: 50%;
-  left: 50%;
-  z-index: 10;
-  width: min(310px, 38vw);
-  transform: translate(-50%, -50%);
-  overflow: hidden;
-}
-
-.screen-layer {
-  position: absolute;
-  inset: 8px;
-  width: calc(100% - 16px);
-  height: calc(100% - 16px);
-  opacity: 0;
-  transform: translateY(100%);
-  transform-origin: 50% 50%;
-  will-change: transform, opacity;
-  transition:
-    opacity 520ms ease,
-    transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.screen-layer.is-active {
+/* ── No JavaScript, no scroll timelines: a readable stack ────────────────── */
+/* Every screen is visible, in order, with its own caption from the step list.
+   This is the floor, and it has to be good on its own. */
+.screen {
   opacity: 1;
-  transform: translateY(0) scale(1);
+}
+.phone-screens {
+  display: grid;
+}
+.screen {
+  position: relative;
+  grid-area: 1 / 1;
 }
 
-.screen-layer.is-before {
-  opacity: 0;
-  transform: translateY(-28%) scale(0.96);
-}
-
-.stage-note {
-  position: absolute;
-  z-index: 6;
-  display: flex;
-  align-items: center;
-  gap: 0.72rem;
-  max-width: 240px;
-  padding: 0.8rem 0.9rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(16, 18, 16, 0.8);
-  color: var(--paper);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  opacity: 0;
-  transform: translate(-50%, -50%);
-  will-change: transform, opacity;
-}
-
-.stage-note span {
-  color: var(--amber);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-}
-
-.stage-note strong {
-  font-size: 0.76rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  line-height: 1.25;
-  text-transform: uppercase;
-}
-
-.note-discover,
-.note-track {
-  left: 12%;
-}
-
-.note-choose,
-.note-request,
-.note-chat {
-  left: 88%;
-}
-
-.note-discover {
-  top: 31%;
-}
-
-.note-choose {
-  top: 22%;
-}
-
-.note-request {
-  top: 50%;
-}
-
-.note-track {
-  top: 70%;
-}
-
-.note-chat {
-  top: 78%;
-}
-
-.chapters {
+/* ── With JavaScript: one at a time, cross-faded ─────────────────────────── */
+[data-enhanced] .screen {
   position: absolute;
   inset: 0;
-  z-index: 20;
-  display: grid;
-  grid-template-rows: repeat(5, 100svh);
-  padding: 0 clamp(1.2rem, 4vw, 4.8rem);
+  opacity: 0;
+  transform: translate3d(0, 1.5%, 0) scale(0.985);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  will-change: opacity, transform;
 }
-
-.chapter {
-  width: min(31rem, 31vw);
-  align-self: center;
-  opacity: 0.15;
-  filter: blur(1px);
-  transform: translateY(20px);
-  transition:
-    opacity 320ms ease,
-    transform 320ms ease,
-    filter 320ms ease;
-}
-
-.chapter.left {
-  justify-self: start;
-}
-
-.chapter.right {
-  justify-self: end;
-  text-align: right;
-}
-
-.chapter.is-active {
+[data-enhanced] .screen[data-visible] {
   opacity: 1;
-  filter: blur(0);
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+[data-enhanced] .phone-screens {
+  display: block;
 }
 
-.chapter.is-before {
-  opacity: 0.34;
-  filter: blur(0);
-  transform: translateY(-8px);
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
 }
 
-.chapter-heading {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  margin-bottom: 1.2rem;
-}
-
-.chapter.right .chapter-heading {
-  justify-content: flex-end;
-}
-
-.chapter-number {
-  color: var(--amber);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 4.7rem;
-  font-weight: 700;
-  line-height: 0.78;
-}
-
-.chapter h2 {
-  margin-bottom: 0;
-  font-family: var(--display);
-  font-size: 3.25rem;
-  line-height: 0.95;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-
-.chapter-subtitle {
-  margin-bottom: 1.2rem;
-  color: rgba(247, 243, 232, 0.72);
-  font-size: 0.76rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.chapter p:not(.chapter-subtitle) {
-  max-width: 28rem;
-  margin-bottom: 0;
-  color: var(--paper-dim);
-  font-size: 0.96rem;
-  line-height: 1.72;
-}
-
-.chapter.right p {
-  margin-left: auto;
-}
-
-.download {
-  position: relative;
-  z-index: 25;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 2rem;
-  padding: 7rem clamp(1.2rem, 4vw, 5rem);
+.step {
+  /* The sticky phone owns the top of the viewport on a phone — roughly 46vh of
+     it. The step text starts below that band so the two never overlap, which no
+     amount of backdrop can fix once a heading is behind glass. */
+  padding: 1.25rem 0 44vh;
   border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background:
-    linear-gradient(90deg, rgba(85, 197, 190, 0.11), transparent 55%),
-    rgba(16, 18, 16, 0.72);
-}
-
-.download-copy {
-  max-width: 780px;
-}
-
-.download h2 {
-  margin-bottom: 1rem;
-  font-family: var(--display);
-  font-size: 4.6rem;
-  line-height: 0.96;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-
-.download p:not(.eyebrow) {
-  max-width: 42rem;
-  margin-bottom: 0;
-  color: var(--paper-dim);
-  font-size: 1rem;
-  line-height: 1.7;
-}
-
-.store-button {
-  gap: 0.72rem;
-  min-width: 192px;
-  min-height: 64px;
-  padding: 0.75rem 1rem;
-  background: var(--paper);
-  border-color: var(--paper);
-  color: var(--black);
-}
-
-.store-button span {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  line-height: 1.06;
+  justify-content: flex-start;
+}
+.step:first-child {
+  padding-top: 0.5rem;
+}
+.step:last-child {
+  /* No seventh step to make room for. */
+  padding-bottom: 6rem;
+}
+.step:first-child {
+  border-top: 0;
 }
 
-.store-button small {
-  font-size: 0.62rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.step-n {
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  color: var(--muted);
 }
 
-.store-button strong {
-  font-size: 1.04rem;
+.step h3 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.15rem, 4.5vw, 1.45rem);
+  line-height: 1.2;
 }
 
-.site-footer {
-  position: relative;
-  z-index: 25;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.2rem;
-  padding: 2.1rem clamp(1.2rem, 4vw, 5rem) 2.8rem;
-  color: rgba(247, 243, 232, 0.68);
-  font-size: 0.82rem;
+.step p {
+  margin: 0;
+  color: var(--paper-dim);
+  line-height: 1.6;
+  max-width: 34rem;
+}
+.step em {
+  color: var(--lime);
+  font-style: normal;
 }
 
-.site-footer .brand-logo {
-  width: 112px;
+/* ─── The plain terms ────────────────────────────────────────────────────── */
+.plain {
+  background: var(--carbon);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 3rem 1.25rem;
+}
+.plain-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+.plain-lede {
+  color: var(--paper-dim);
+  max-width: 34rem;
+  margin: 0 0 2rem;
+}
+.plain-grid {
+  display: grid;
+  gap: 1rem;
+}
+.plain-card {
+  padding: 1.25rem 1.35rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--carbon-2);
+}
+.plain-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--amber);
+}
+.plain-card p {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.55;
+  color: var(--paper-dim);
 }
 
-.site-footer small {
-  white-space: nowrap;
+/* ─── Owners ─────────────────────────────────────────────────────────────── */
+.owners {
+  padding: 3rem 1.25rem;
+}
+.owners-inner {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+.owners p {
+  color: var(--paper-dim);
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+.owners-note {
+  padding: 1rem 1.2rem;
+  border-left: 3px solid var(--amber);
+  background: rgba(226, 168, 95, 0.08);
+  border-radius: 0 10px 10px 0;
+  font-size: 0.93rem;
 }
 
-@media (max-width: 1180px) {
+/* ─── Download ───────────────────────────────────────────────────────────── */
+.get {
+  padding: 3.5rem 1.25rem 4.5rem;
+  text-align: center;
+  border-top: 1px solid var(--line);
+}
+.get-inner {
+  max-width: 38rem;
+  margin: 0 auto;
+}
+.get h2 {
+  font-family: var(--display);
+  font-size: clamp(1.7rem, 7vw, 2.8rem);
+  line-height: 1.05;
+  margin: 0 0 1rem;
+}
+.get p {
+  color: var(--paper-dim);
+  margin: 0 0 1.75rem;
+  line-height: 1.6;
+}
+
+/* ─── Wider screens ──────────────────────────────────────────────────────── */
+@media (min-width: 56rem) {
   .hero {
-    grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
+    padding: calc(var(--header) + 4rem) 2rem 3.5rem;
   }
-
-  .hero h1 {
-    font-size: 4.5rem;
+  .sequence {
+    padding: 3rem 2rem 5rem;
   }
-
-  .hero-visual {
-    min-height: 500px;
-  }
-
-  .main-device {
-    right: 13%;
-    width: 242px;
-  }
-
-  .ghost-device {
-    width: 184px;
-  }
-
-  .chapter {
-    width: min(28rem, 34vw);
-  }
-
-  .chapter-number {
-    font-size: 4.1rem;
-  }
-
-  .chapter h2 {
-    font-size: 2.8rem;
-  }
-}
-
-@media (max-width: 900px) {
-  :root {
-    --header: 68px;
-  }
-
-  .site-header nav {
-    gap: 1rem;
-  }
-
-  .hero {
-    grid-template-columns: 1fr;
+  .sequence-grid {
+    display: grid;
+    grid-template-columns: 1fr 20rem;
+    gap: 4rem;
     align-items: start;
-    gap: 1.5rem;
-    padding-top: calc(var(--header) + 2rem);
   }
-
-  .hero h1 {
-    font-size: 4.2rem;
+  .steps {
+    order: 1;
   }
-
-  .lede {
-    font-size: 1rem;
+  .phone-rail {
+    order: 2;
+    position: sticky;
+    top: 6rem;
+    margin: 0;
+    max-width: none;
   }
-
-  .hero-visual {
-    min-height: 510px;
-  }
-
-  .main-device {
-    right: 50%;
-    width: 238px;
-    transform: translate(50%, -50%) rotate(-3deg);
-  }
-
-  .ghost-device {
-    width: 180px;
-  }
-
-  .ghost-one {
-    right: 6%;
-  }
-
-  .ghost-two {
-    right: auto;
-    left: 5%;
-  }
-
-  .route-card-one {
-    left: 0;
-    top: 6%;
-  }
-
-  .route-card-two {
-    right: 0;
-    bottom: 5%;
-  }
-
-  .hero-peek {
-    grid-template-columns: 1fr;
-  }
-
-  .app-story {
-    min-height: auto;
-    margin-top: 0;
-  }
-
-  .story-visual {
-    top: var(--header);
-    z-index: 18;
-    height: 48svh;
-    align-items: start;
-    padding-top: 0.9rem;
-    background: rgba(5, 6, 5, 0.92);
-  }
-
-  .story-visual::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 -34px;
-    height: 34px;
-    background: linear-gradient(180deg, rgba(5, 6, 5, 0.92), transparent);
-    pointer-events: none;
-  }
-
-  .app-stage {
-    width: min(88vw, 470px);
-  }
-
-  .stage-phone {
-    width: min(210px, 43vw);
-    padding: 6px;
-    border-radius: 28px;
-  }
-
-  .stage-phone .device-island {
-    top: 11px;
-    height: 15px;
-  }
-
-  .screen-layer {
-    inset: 6px;
-    width: calc(100% - 12px);
-    height: calc(100% - 12px);
-    border-radius: 22px;
-  }
-
-  .stage-note {
-    display: none;
-  }
-
-  .chapters {
-    position: relative;
-    display: block;
-    padding: 0 1.2rem 3rem;
-  }
-
-  .chapter,
-  .chapter.left,
-  .chapter.right {
-    width: min(100%, 34rem);
-    min-height: 74svh;
-    display: flex;
-    flex-direction: column;
+  .step,
+  .step:first-child {
+    /* Side by side on a desktop: no vertical clearance needed, just enough
+       height that each step owns a clear stretch of scroll — which is what makes
+       the sequence track the finger rather than flicker between two. */
+    padding: 2.5rem 0;
+    min-height: 70vh;
     justify-content: center;
-    opacity: 1;
-    filter: none;
-    transform: none;
-    text-align: left;
   }
-
-  .chapter.right .chapter-heading {
-    justify-content: flex-start;
+  .phone-rail {
+    /* On a desktop the phone sits in its own column, so none of the backdrop
+       machinery is needed — nothing scrolls behind it. */
+    top: 6rem;
+    margin: 0;
+    padding: 0;
+    background: none;
   }
-
-  .chapter.is-before {
-    opacity: 0.22;
+  .phone-rail .phone {
+    max-width: none;
   }
-
-  .chapter-number {
-    font-size: 4.3rem;
+  .plain-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
   }
-
-  .chapter h2 {
-    font-size: 3rem;
-  }
-
-  .chapter p:not(.chapter-subtitle) {
-    margin-left: 0;
-    font-size: 0.92rem;
-  }
-
-  .download {
-    grid-template-columns: 1fr;
-    align-items: start;
-    padding-block: 5rem;
-  }
-
-  .download h2 {
-    font-size: 3.4rem;
+  .plain,
+  .owners,
+  .get {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
-@media (max-width: 620px) {
-  :root {
-    --header: 62px;
+/* ─── Scroll-driven animation, where the browser has it ──────────────────── */
+/* No JavaScript involved: the screen's opacity is a function of where its step
+   sits in the viewport, so it tracks the finger and reverses on scroll-back. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .step[data-step="1"] { view-timeline-name: --s1; }
+    .step[data-step="2"] { view-timeline-name: --s2; }
+    .step[data-step="3"] { view-timeline-name: --s3; }
+    .step[data-step="4"] { view-timeline-name: --s4; }
+    .step[data-step="5"] { view-timeline-name: --s5; }
+    .step[data-step="6"] { view-timeline-name: --s6; }
+
+    .sequence-grid .screen {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      animation: screen-in linear both;
+      animation-range: cover 22% cover 78%;
+      will-change: opacity, transform;
+    }
+    .sequence-grid .phone-screens { display: block; }
+
+    /* The first screen is the RESTING STATE. Every other screen fades up from
+       nothing, but screen 1 has to be solid before its step has entered the
+       range at all — otherwise the phone is an empty white rectangle for the
+       whole of the hero, which is the first thing a visitor sees. With
+       fill-mode both, holding opacity 1 at 0% is what the phone shows until
+       the sequence starts moving. */
+    .screen[data-screen="1"] {
+      animation-timeline: --s1;
+      animation-name: screen-in-first;
+    }
+    @keyframes screen-in-first {
+      0%, 14% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+      86%     { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+      100%    { opacity: 0; transform: translate3d(0, -2%, 0) scale(0.985); }
+    }
+    .screen[data-screen="2"] { animation-timeline: --s2; }
+    .screen[data-screen="3"] { animation-timeline: --s3; }
+    .screen[data-screen="4"] { animation-timeline: --s4; }
+    .screen[data-screen="5"] { animation-timeline: --s5; }
+    /* The last screen holds to the end for the same reason the first holds from
+       the start: once its step has passed there is no seventh screen to take
+       over, and an empty phone at the foot of the section looks broken. */
+    .screen[data-screen="6"] {
+      animation-timeline: --s6;
+      animation-name: screen-in-last;
+    }
+    @keyframes screen-in-last {
+      0%        { opacity: 0; transform: translate3d(0, 2%, 0) scale(0.985); }
+      14%, 100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+    }
+
+    /* Transform and opacity only — nothing here reads or writes layout. */
+    @keyframes screen-in {
+      0%   { opacity: 0; transform: translate3d(0, 2%, 0) scale(0.985); }
+      14%  { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+      86%  { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+      100% { opacity: 0; transform: translate3d(0, -2%, 0) scale(0.985); }
+    }
+
+    /* The JavaScript fallback must not fight the native timeline. */
+    [data-enhanced] .sequence-grid .screen { transition: none; }
+  }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
+/* Not a broken sequence with the animation removed: a deliberate static one.
+   Every screen is shown, each beside its own step, nothing moves, nothing is
+   sticky, and the reader gets the whole story by scrolling normally. */
+/* The paired images are for reduced motion only; every other mode uses the one
+   sticky frame and must not pay for a second copy on screen. */
+.step-shot { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* A STATIC SEQUENCE THAT IS GOOD ON ITS OWN, not the animated one with the
+     movement switched off. Each screen sits with the step it illustrates, in
+     reading order, and the sticky frame — which would otherwise be six
+     screenshots stacked above six paragraphs — is gone entirely. */
+  .phone-rail { display: none; }
+  .step-shot {
+    display: block;
+    max-width: 13rem;
+    margin: 1.25rem 0 0;
+  }
+  .step-shot img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 1rem;
+    border: 1px solid var(--line);
+  }
+  .step,
+  .step:first-child,
+  .step:last-child {
+    padding: 2rem 0;
+    min-height: 0;
   }
 
-  .brand-logo {
-    width: 105px;
+  .screen,
+  [data-enhanced] .screen,
+  .sequence-grid .screen {
+    position: relative !important;
+    inset: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
   }
+  .phone-screens,
+  [data-enhanced] .phone-screens,
+  .sequence-grid .phone-screens {
+    display: grid !important;
+    grid-auto-flow: row;
+    aspect-ratio: auto;
+    gap: 0.5rem;
+    background: transparent;
+  }
+  .phone-screens::after { display: none; }
+  .phone {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+  }
+  .phone-rail {
+    position: static !important;
+    max-width: 17rem;
+  }
+  .screen img {
+    border-radius: 1.1rem;
+    height: auto;
+    object-fit: contain;
+  }
+  .step { min-height: 0; }
+  .button:hover { transform: none; }
+  html { scroll-behavior: auto; }
+}
 
+
+/* ─── The header on a small phone ────────────────────────────────────────── */
+/* The nav is three uppercase items with 1.5rem gaps; under about 26rem that is
+   wider than the screen. Tightened here rather than in the shared header block,
+   so /privacy keeps exactly the header it was built against. */
+@media (max-width: 30rem) {
   .site-header {
     padding-inline: 1rem;
   }
-
-  .site-header nav a:first-child {
-    display: none;
+  .site-header nav {
+    gap: 0.75rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
   }
-
-  .site-header nav,
-  .site-footer nav {
-    font-size: 0.7rem;
-    letter-spacing: 0.07em;
-  }
-
-  .hero {
-    min-height: auto;
-    padding: calc(var(--header) + 1.4rem) 1rem 2.4rem;
-  }
-
-  .hero h1 {
-    max-width: 9ch;
-    font-size: 3.25rem;
-  }
-
-  .hero-actions {
-    align-items: stretch;
-  }
-
-  .button {
-    width: 100%;
-  }
-
-  .hero-visual {
-    min-height: 430px;
-  }
-
-  .main-device {
-    top: 48%;
-    width: 205px;
-  }
-
-  .ghost-device {
-    width: 145px;
-  }
-
-  .route-card {
-    min-width: 150px;
-    padding: 0.68rem 0.75rem;
-  }
-
-  .route-card-two {
-    bottom: 0;
-  }
-
-  .hero-peek {
-    margin-inline: 1rem;
-  }
-
-  .hero-peek div {
-    min-height: 64px;
-    padding: 0.85rem;
-  }
-
-  .hero-peek strong {
-    font-size: 1.3rem;
-  }
-
-  .hero-peek span {
-    font-size: 0.68rem;
-  }
-
-  .story-visual {
-    height: 42svh;
-  }
-
-  .chapter {
-    min-height: 78svh;
-  }
-
-  .chapter-heading {
-    gap: 0.72rem;
-  }
-
-  .chapter-number {
-    font-size: 3.45rem;
-  }
-
-  .chapter h2 {
-    font-size: 2.35rem;
-  }
-
-  .download h2 {
-    font-size: 2.55rem;
-  }
-
-  .site-footer {
-    align-items: flex-start;
-    flex-direction: column;
+  .site-header .brand-logo {
+    width: 96px;
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+@media (max-width: 22rem) {
+  .site-header nav a[href="#plain"] {
+    display: none;
   }
 }
