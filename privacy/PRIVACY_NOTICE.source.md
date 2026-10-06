@@ -315,7 +315,7 @@ top always reflects the current version.
 
 ## 11. Contact
 
-Email: privacy@drivebai.com
+Email: support@drivebai.com
 
 Mail: DriveBai, >>> POSTAL ADDRESS REQUIRED — DO NOT PUBLISH THIS DOCUMENT UNTIL
 THIS LINE IS REPLACED <<<
@@ -324,7 +324,17 @@ THIS LINE IS REPLACED <<<
 > carry a real postal address and a contact that answers. This line is a
 > placeholder. Publishing with it is worse than not publishing: rule 5.1.1(i)
 > asks for a privacy policy a user can act on, and an address nobody can write to
-> fails that in the most visible way possible. Replace the line, and confirm
-> privacy@drivebai.com reaches someone — email delivery has been broken on this
-> project before, and a privacy contact that bounces is the same defect wearing a
-> different hat.
+> fails that in the most visible way possible.
+>
+> The email half is settled. The address above is a mailbox Aziza reads; it
+> replaced one that was named here before anyone had checked it existed, and
+> email delivery has been broken on this project before, so a privacy contact
+> that bounces is the same defect wearing a different hat.
+>
+> **The postal address is still missing, and a mailbox is not one.** Section 11
+> asks for a physical address a person can write to; an email address does not
+> answer that.
+>
+> **This block is internal. Delete it as well as replacing the line above** —
+> otherwise the published notice carries our own blocker notes, which is a worse
+> look than the gap they describe.

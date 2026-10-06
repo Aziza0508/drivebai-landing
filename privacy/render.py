@@ -247,7 +247,7 @@ page = f"""<!doctype html>
       <nav aria-label="Legal">
         <a href="/privacy" aria-current="page">Privacy</a>
         <a href="https://drivebai-landing-v2.netlify.app/terms">Terms</a>
-        <a href="mailto:privacy@drivebai.com">Contact</a>
+        <a href="mailto:support@drivebai.com">Contact</a>
       </nav>
       <small>&copy; DriveBai 2026</small>
     </footer>
@@ -257,6 +257,13 @@ page = f"""<!doctype html>
 
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(page)
+
+# Loud, every single time, because the one thing that must not happen quietly is
+# this page going live with our own blocker notes on it.
+if "POSTAL ADDRESS REQUIRED" in md:
+    print("\n  !! NOT PUBLISHABLE: section 11 still carries the postal-address")
+    print("     placeholder, and the internal blocker note renders on the page.")
+    print("     Replace the Mail line AND delete the blockquote under it.\n")
 print(f"wrote {OUT} ({len(page)} bytes), {len(section_titles)} numbered sections")
 for a, t in section_titles:
     print(f"  #{a:<11} {t}")
