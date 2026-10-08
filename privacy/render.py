@@ -223,7 +223,8 @@ page = f"""<!doctype html>
       </a>
       <nav aria-label="Primary">
         <a href="../#how">How it works</a>
-        <a href="../#download">iOS app</a>
+        <a href="../#plain">The plain terms</a>
+        <a href="../#get">Get the app</a>
       </nav>
     </header>
 
