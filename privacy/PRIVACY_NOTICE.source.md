@@ -1,6 +1,6 @@
 # DriveBai Privacy Notice
 
-Last updated 8 October 2026.
+Last updated 16 October 2026.
 
 This notice describes what DriveBai collects about you, who sees it, how long it
 is kept, and what you can do about it. It describes what the app and our systems
@@ -31,6 +31,18 @@ to upload. These are stored as image files against your account.
 
 We need them so a car owner can satisfy themselves that you are licensed before
 handing over a car.
+
+When you upload a driving licence, a copy of the picture is also sent to
+Microsoft's document-reading service, which reads three things off it: whether
+it is a driving licence, when it expires, and the name on it, so that the member
+of our staff who reviews your licence can compare that name with your account.
+The copy we send is reduced in size, and anything the camera recorded about
+where and when the photo was taken is removed first. What comes back is shown to
+the reviewer beside the picture. It does not approve or decline anything; a
+person does that, as before. We keep the three readings and the expiry date
+against the document, and nothing else the service reads — not the licence
+number, not your date of birth. Section 3 says what Microsoft does with the
+picture.
 
 **Read this part carefully, because it surprises people.** When you send a
 request for a car, the documents you have uploaded are shared with that car's
@@ -165,6 +177,14 @@ you can read that record in the app.**
   rounded position, so what Apple receives is no more precise than what we hold.
 - **MailerSend or SendGrid** — sending emails.
 - **Fly.io** — hosting our systems and database.
+- **Microsoft** — reading driving licences. When you upload a licence, the
+  Azure document-reading service receives a reduced copy of the picture, with
+  anything the camera recorded about where and when it was taken removed, and
+  returns what it reads: the kind of document, the name, and the expiry date.
+  Microsoft keeps the picture and the reading for up to 24 hours so that we can
+  collect the result, then deletes both; we also ask for them to be deleted as
+  soon as we have the result. Microsoft does not use them to train its models.
+  We keep only the three readings and the expiry date, as section 1 says.
 - **The United States National Highway Traffic Safety Administration** — we look
   up a vehicle identification number against their public database to check a
   car's details. This sends the vehicle number only, never anything about you.
@@ -227,6 +247,7 @@ and why, and a button to request deletion.
 |---|---|
 | Your account and profile | while your account exists |
 | Documents you upload, including your licence | while your account exists; deleted when you delete your account |
+| The automatic reading of your licence (three results and the expiry date) | with the licence it was read from; deleted with it |
 | Rentals, payments and payouts | 7 years, because tax and financial rules require it |
 | Chat messages | with the rental they belong to |
 | Handover records and photographs | with the rental |
