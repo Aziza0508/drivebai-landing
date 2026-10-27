@@ -1,6 +1,6 @@
 # DriveBai Privacy Notice
 
-Last updated 16 October 2026.
+Last updated 27 October 2026.
 
 This notice describes what DriveBai collects about you, who sees it, how long it
 is kept, and what you can do about it. It describes what the app and our systems
@@ -175,7 +175,10 @@ you can read that record in the app.**
 - **Apple** — delivering notifications to your phone, and looking up the name of
   a neighbourhood from a location. The lookup is done on your phone, and from the
   rounded position, so what Apple receives is no more precise than what we hold.
-- **MailerSend or SendGrid** — sending emails.
+- **Resend** — sending the emails the app sends you: sign-in codes, password
+  resets and the notices about your account. They come from
+  support@drivebai.com, and a reply reaches us there. MailerSend or SendGrid
+  can carry the same emails instead if Resend is unavailable.
 - **Fly.io** — hosting our systems and database.
 - **Microsoft** — reading driving licences. When you upload a licence, the
   Azure document-reading service receives a reduced copy of the picture, with
